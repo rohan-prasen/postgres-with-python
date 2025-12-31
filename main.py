@@ -38,9 +38,15 @@ cur.execute(
     """
 )
 
-# data fetching
+# data fetching single line
 cur.execute('''SELECT * FROM person WHERE name = 'John Doe';''')
 print(cur.fetchone())
+
+# data fetching multiple lines
+cur.execute('''SELECT * FROM person;''')
+# print(cur.fetchall()) # if you want all the data in a single line
+for row in cur.fetchall(): # data in multiple lines
+    print(row)
 
 conn.commit()
 
