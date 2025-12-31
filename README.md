@@ -27,9 +27,25 @@ source ./.venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
+## Before running the code don't forget to create a `.env` file
+
+```bash
+cp .env.example .env
+```
+
+### Your .env file looks as follows:
+
+```env
+host="your-host-name-here"
+database="your-database-name-here"
+user="your-username-here"
+password="your-password-here"
+port=your-port-number-here
+```
+
+Change all the environment variables in the code and then try to run the program uisng the below command
+
 ```bash
 # To run any code sample
 uv run main.py
 ```
-
-Follow the learning by going through the different branches in the repository.
