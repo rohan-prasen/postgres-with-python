@@ -1,0 +1,9 @@
+[project]
+name = "postgres"
+version = "0.1.0"
+description = "I am learning Postgres with Python"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "psycopg2>=2.9.11",
+]
