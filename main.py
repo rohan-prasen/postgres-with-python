@@ -1,6 +1,43 @@
-def main():
-    print("Hello from postgres!")
+import psycopg2
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
-if __name__ == "__main__":
-    main()
+conn = psycopg2.connect(
+    host="localhost",
+    database="postgres",
+    user="postgres",
+    password="melcowe",
+    port=5432
+)
+
+cur = conn.cursor()
+
+# creating table PERSON
+cur.execute(
+    """
+    CREATE TABLE IF NOT EXISTS person (
+    id INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    age INT NOT NULL,
+    gender CHAR(1) NOT NULL
+    );
+    """
+)
+
+# inserting data into PERSON table
+cur.execute(
+    """
+    INSERT INTO person (id, name, age, gender) VALUES
+    (1, 'John Doe', 30, 'M'),
+    (2, 'Jane Smith', 25, 'F'),
+    (3, 'Alice Johnson', 28, 'F'),
+    (4, 'Bob Brown', 35, 'M');
+    """
+)
+
+conn.commit()
+
+cur.close()
+conn.close()
