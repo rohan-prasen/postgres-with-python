@@ -26,16 +26,27 @@ cur.execute(
     """
 )
 
-# inserting data into PERSON table
+# inserting data into PERSON table: To avoid duplicate entries, we use `ON CONFLICT DO NOTHING`
 cur.execute(
     """
     INSERT INTO person (id, name, age, gender) VALUES
     (1, 'John Doe', 30, 'M'),
     (2, 'Jane Smith', 25, 'F'),
     (3, 'Alice Johnson', 28, 'F'),
-    (4, 'Bob Brown', 35, 'M');
+    (4, 'Bob Brown', 35, 'M')
+    ON CONFLICT (id) DO NOTHING;
     """
 )
+
+# data fetching single line
+cur.execute('''SELECT * FROM person WHERE name = 'John Doe';''')
+print(cur.fetchone())
+
+# data fetching multiple lines
+cur.execute('''SELECT * FROM person;''')
+# print(cur.fetchall()) # if you want all the data in a single line
+for row in cur.fetchall(): # data in multiple lines
+    print(row)
 
 conn.commit()
 
