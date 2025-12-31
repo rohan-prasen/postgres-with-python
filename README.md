@@ -2,7 +2,7 @@
 
 Hey, I am learning how to use PostgreSQL with Python for backend development. Soon will implement integration with FastAPI.
 
-```
+```bash
 # For those who prefer HTTPS
 git clone https://github.com/rohan-prasen/postgres-with-python.git
 
@@ -33,7 +33,7 @@ pip3 install -r requirements.txt
 cp .env.example .env
 ```
 
-### Your .env file looks as follows:
+### Your .env file looks as follows
 
 ```env
 host="your-host-name-here"
