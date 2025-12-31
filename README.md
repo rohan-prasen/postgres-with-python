@@ -1,6 +1,8 @@
-# Learning PostgreSQL with Python
+# Learning PostgreSQL with Python & FastAPI
 
-Hey, I am learning how to use PostgreSQL with Python for backend development. Soon will implement integration with FastAPI.
+Hey, I am learning how to use PostgreSQL with Python for backend development. This project now includes a FastAPI application to serve data through a REST API.
+
+## Setup
 
 ```bash
 # For those who prefer HTTPS
@@ -37,16 +39,66 @@ cp .env.example .env
 ### Your .env file looks as follows
 
 ```env
-host="your-host-name-here"
-database="your-database-name-here"
-user="your-username-here"
-password="your-password-here"
-port=your-port-number-here
+DB_HOST="localhost"
+DB_DATABASE="postgres"
+DB_USER="postgres"
+DB_PASSWORD="your-password-here"
+DB_PORT=5432
 ```
 
-Change all the environment variables in the code and then try to run the program uisng the below command
+Change all the environment variables in the .env file and then try to run the program using the commands below.
 
+## Running the Application
+
+### Run the original script (database operations):
 ```bash
-# To run any code sample
+# To run the original database operations script
 uv run main.py
+```
+
+### Run the FastAPI server:
+```bash
+# Method 1: Using uvicorn directly
+uv run uvicorn api:app --reload
+
+# Method 2: Using the main_api.py file
+uv run python main_api.py
+
+# Method 3: Using the server.py file
+uv run python server.py
+```
+
+## API Endpoints
+
+Once the server is running, you can access the following endpoints:
+
+- `GET /` - Root endpoint with status information
+- `GET /persons/` - Get all persons
+- `GET /persons/{person_id}` - Get a specific person by ID
+- `GET /persons/search?name={name}` - Search persons by name (partial matching)
+- `POST /persons/` - Create a new person
+- `PUT /persons/{person_id}` - Update an existing person
+- `DELETE /persons/{person_id}` - Delete a person
+- `GET /health` - Health check endpoint
+- `GET /test` - Simple test endpoint to verify the API is working
+- `GET /stats` - Get statistics about the database
+- `GET /docs` - Interactive API documentation (Swagger UI)
+- `GET /redoc` - Alternative API documentation (ReDoc)
+
+## API Models
+
+### Person Object
+- `id` (integer): Unique identifier
+- `name` (string): Person's name
+- `age` (integer): Person's age
+- `gender` (string): Person's gender (single character)
+
+Example:
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+  "age": 30,
+  "gender": "M"
+}
 ```

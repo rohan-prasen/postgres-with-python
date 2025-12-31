@@ -1,54 +1,22 @@
 import psycopg2
 from dotenv import load_dotenv
 import os
+from database import init_db, get_all_persons, get_person_by_name
 
+# Load environment variables
 load_dotenv()
 
-conn = psycopg2.connect(
-    host="localhost",
-    database="postgres",
-    user="postgres",
-    password="melcowe",
-    port=5432
-)
+# Initialize the database and sample data
+init_db()
 
-cur = conn.cursor()
+# Fetch and display a specific person
+person = get_person_by_name('John Doe')
+if person:
+    print(person)
 
-# creating table PERSON
-cur.execute(
-    """
-    CREATE TABLE IF NOT EXISTS person (
-    id INT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    age INT NOT NULL,
-    gender CHAR(1) NOT NULL
-    );
-    """
-)
+# Fetch and display all persons
+all_persons = get_all_persons()
+for person in all_persons:
+    print(person)
 
-# inserting data into PERSON table: To avoid duplicate entries, we use `ON CONFLICT DO NOTHING`
-cur.execute(
-    """
-    INSERT INTO person (id, name, age, gender) VALUES
-    (1, 'John Doe', 30, 'M'),
-    (2, 'Jane Smith', 25, 'F'),
-    (3, 'Alice Johnson', 28, 'F'),
-    (4, 'Bob Brown', 35, 'M')
-    ON CONFLICT (id) DO NOTHING;
-    """
-)
-
-# data fetching single line
-cur.execute('''SELECT * FROM person WHERE name = 'John Doe';''')
-print(cur.fetchone())
-
-# data fetching multiple lines
-cur.execute('''SELECT * FROM person;''')
-# print(cur.fetchall()) # if you want all the data in a single line
-for row in cur.fetchall(): # data in multiple lines
-    print(row)
-
-conn.commit()
-
-cur.close()
-conn.close()
+print("\nTo run the FastAPI server, use: uvicorn api:app --reload")
