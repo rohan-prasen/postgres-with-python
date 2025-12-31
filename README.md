@@ -31,3 +31,5 @@ pip3 install -r requirements.txt
 # To run any code sample
 uv run main.py
 ```
+
+Follow the learning by going through the different branches in the repository.
