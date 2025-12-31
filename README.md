@@ -12,8 +12,9 @@ git clone git@github.com:rohan-prasen/postgres-with-python.git
 
 ```bash
 # I used uv as my venv manager
-uv init .
 uv sync
+./.venv/Scripts/activate # windows
+source ./.venv/bin/activate # macOS/Linux
 
 # Normal python venv usage
 # For windows users
